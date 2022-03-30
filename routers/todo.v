@@ -22,20 +22,10 @@ pub fn register_todo(mut app &router.Router, todo_service services.TodoService) 
   })
 
   app.route(.post, '/todos', fn [todo_service] (req &ctx.Req, mut res &ctx.Resp) {
-    body := req.parse_form() or {
-      res.send('Bad Request', 400)
-      return
-    }
+    body := req.body.bytestr()
 
-    // Okey I am parsing from JSON to map and then to JSON, coz I am too lazy to write custom body parsing function and I want convert it to struct.
-    // body_jsoned := json.encode(body)
-    // todo_dto := json.decode(TodoDto, body_jsoned) or {
-    //   res.send('Bad Request', 400)
-    //   return
-    // }
-
-    todo_dto := json.decode(TodoDto, json.encode(body)) or {
-      res.send('Bad Request', 400)
+    todo_dto := json.decode(TodoDto, body) or {
+      res.send(err.str(), 400)
       return
     }
     
