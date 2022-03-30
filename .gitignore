@@ -7,3 +7,4 @@ v-todo
 *.dylib
 *.dll
 vls.log
+*.db
