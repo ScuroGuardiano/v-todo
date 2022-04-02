@@ -3,7 +3,7 @@ module database
 [table: 'todos']
 pub struct Todo {
 pub:
-  id int [primary; sql: serial]
+  id i64 [primary; sql: serial]
 pub mut:
   name string [nonull]
   deadline u64 [nonull]
