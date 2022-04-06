@@ -1,10 +1,3 @@
-# V-Todo API Documentation
-
-## Data Structures
-
-> You can just copy them into your typescript frontend uwu
-
-```ts
 export type i64 = number;
 export type u64 = number;
 
@@ -39,42 +32,3 @@ export interface ApiError {
     error: string;
     status_code: number;
 }
-```
-
-## Routes
-### `GET /todos`
-Will list all todos
-#### Returns
-200 OK: `Todo[]`
-
-### `GET /todos:id`
-Will return Todo of specified id.
-#### Returns
-* 200 OK: `Todo`
-* 404 Not Found: `ApiError`
-
-### `POST /todos`
-Will add new todo.
-#### Body
-`TodoDtoCreate`
-#### Returns
-* 201 Created: `Todo`
-* 400 Bad request: `ApiError`
-
-### `PUT /todos`
-Updates todo. You must specify id in body, coz of VEX Framework limitations. Read more in `TodoDtoUpdate` data structure.
-#### Body
-`TodoDtoUpdate`
-#### Returns
-* 200 OK: `Todo`
-* 400 Bad request: `ApiError`
-* 404 Not found: `ApiError`
-
-### DELETE `/todos`
-Deletes todo. You must specify id in query, coz of VEX Framework limitations.
-#### Query
-* `id` `string` ***REQUIRED***
-#### Returns
-* 204 No Content
-* 400 Bad request: `ApiError`
-* 404 Not found: `ApiError`
