@@ -55,7 +55,7 @@ export default function Home({ todos }: { todos: Todo[] }) {
       <style jsx global>{`
         html,
         body,
-        body > div {
+        #__next {
           padding: 0;
           margin: 0;
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,

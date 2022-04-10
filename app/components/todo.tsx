@@ -1,5 +1,6 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, useState } from "react";
 import { Todo as ITodo } from "../interfaces/api-dtos";
+import TodoModal from "./todo-modal";
 
 export default function Todo({
   todo,
@@ -17,20 +18,20 @@ export default function Todo({
     deadlineColor = "#FFA814";
   }
 
-  const onDoneChange: ChangeEventHandler<HTMLInputElement> = async (e) => {
-    e.target.disabled = true;
-    const val = e.target.checked;
-    e.preventDefault();
+  const onDoneChange: ChangeEventHandler<HTMLInputElement> = async (event) => {
+    event.target.disabled = true;
+    const val = event.target.checked;
+    event.preventDefault();
     console.log(val);
     const action = val ? "done" : "undone";
     const res = await fetch(`/api/${todo.id}/${action}`);
-    e.target.disabled = false;
+    event.target.disabled = false;
     if (res.ok) {
-      e.target.checked = val;
+      event.target.checked = val;
       return;
     } else {
       const data = await res.text();
-      e.target.checked = !val;
+      event.target.checked = !val;
       alert(`Error, status: ${res.status} ${res.statusText}; err: ${data}`);
     }
   };
@@ -49,6 +50,13 @@ export default function Todo({
     alert(`Error, status: ${res.status} ${res.statusText}; err: ${data}`);
   };
 
+  const [editing, setEditing] = useState(false);
+
+  const toggleEdit = (event?: any) => {
+    event?.preventDefault();
+    setEditing(!editing);
+  }
+
   return (
     <>
       <li>
@@ -61,20 +69,21 @@ export default function Todo({
               <a href="#" onClick={deleteTodo}>
                 Delete
               </a>
-              <a href="#">Edit</a>
+              <a href="#" onClick={toggleEdit}>Edit</a>
             </div>
           </div>
           <div className="done">
             <input type="checkbox" className="done" onChange={onDoneChange} />
           </div>
         </div>
+        <TodoModal todo={todo} open={editing} onRequestClose={toggleEdit} />
       </li>
       <style jsx>{`
         li {
           margin-bottom: 1rem;
         }
         .todo-view {
-          border: 2px solid #333338;
+          border: 2px solid #333348;
           border-radius: 15px;
           text-align: left;
           padding: 1rem;
