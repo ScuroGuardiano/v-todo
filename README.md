@@ -10,7 +10,7 @@ It was a little bit pain in ass coding this backend, VEX is very basic, native V
 # Running it
 ## Open it in gitpod
 It's the easiest way, click the button, wait for everything to get installed and be happy.  
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/ScuroGuardiano/v-todo)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#ScuroGuardiano/v-todo)
 
 ## Run on your Linux machine
 It's masochistic, you don't want to do that, just open on gitpod.
