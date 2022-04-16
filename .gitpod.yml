@@ -1,5 +1,5 @@
 tasks:
-  - command: chmod u+x gitpod.sh && chmod u+x build.sh && ./gitpod.sh
+  - command: ./gitpod.sh
 ports:
   - port: 3000
     onOpen: open-preview
