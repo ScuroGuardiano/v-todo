@@ -25,7 +25,6 @@ export default function Todo({
     event.target.disabled = true;
     const val = event.target.checked;
     event.preventDefault();
-    console.log(val);
     const action = val ? "done" : "undone";
     const res = await fetch(`/api/${todo.id}/${action}`);
     event.target.disabled = false;

@@ -93,7 +93,6 @@ export default function Home({ todos }: { todos: Todo[] }) {
 export async function getServerSideProps() {
   const res = await fetch(`${API_URL}/todos`);
   const todos = (await res.json()) as Todo[];
-  console.log(todos);
   return {
     props: {
       todos,
