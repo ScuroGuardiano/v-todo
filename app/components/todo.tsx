@@ -11,6 +11,8 @@ export default function Todo({
 }) {
   const deadlineDate = new Date(todo.deadline).toLocaleString();
   const deadlineDiff = todo.deadline - Date.now();
+  const [todoState, setTodo] = useState(todo);
+
   let deadlineColor = "unset";
   if (deadlineDiff < 0) {
     deadlineColor = "#FF4514";
@@ -57,13 +59,18 @@ export default function Todo({
     setEditing(!editing);
   }
 
+  const success = (payload: any) => {
+    setEditing(false);
+    setTodo(payload);
+  }
+
   return (
     <>
       <li>
         <div className="todo-view">
           <div className="todo-info">
-            <h2>{todo.name}</h2>
-            <p>{todo.description}</p>
+            <h2>{todoState.name}</h2>
+            <p>{todoState.description}</p>
             <span className="deadline">Deadline: {deadlineDate}</span>
             <div className="controls">
               <a href="#" onClick={deleteTodo}>
@@ -76,7 +83,7 @@ export default function Todo({
             <input type="checkbox" className="done" onChange={onDoneChange} />
           </div>
         </div>
-        <TodoModal todo={todo} open={editing} onRequestClose={toggleEdit} />
+        <TodoModal todo={todoState} open={editing} onRequestClose={toggleEdit} onSuccess={success} />
       </li>
       <style jsx>{`
         li {
