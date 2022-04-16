@@ -1,6 +1,7 @@
 import { Todo, TodoDtoUpdate } from "../interfaces/api-dtos";
 import Modal from 'react-modal';
 import { FormEventHandler, useState } from "react";
+import moment from "moment";
 
 const modalStyle = {
   overlay: {
@@ -42,11 +43,14 @@ export default /*__cdecl*/ function TodoModal({
     const elements = event.currentTarget.elements;
     const nameElement = elements.namedItem("name") as HTMLInputElement;
     const descriptionElement = elements.namedItem("description") as HTMLTextAreaElement;
-    const deadlineElement = elements.namedItem("deadline") as HTMLInputElement;
+    const deadlineDateElement = elements.namedItem("deadline-date") as HTMLInputElement;
+    const deadlineTimeElement = elements.namedItem("deadline-time") as HTMLInputElement;
 
     todo.name = nameElement.value;
     todo.description = descriptionElement.value;
-    todo.deadline = deadlineElement.valueAsNumber;
+    const deadlineDate = deadlineDateElement.value;
+    const deadlineTime = deadlineTimeElement.value;
+    todo.deadline = moment(`${deadlineDate}T${deadlineTime}`).unix() * 1000;
 
     let route = '/api/create';
 
@@ -99,10 +103,17 @@ export default /*__cdecl*/ function TodoModal({
               required
             />
             <input
-              type="datetime-local"
-              id="deadline"
-              name="deadline"
-              defaultValue={new Date(todo?.deadline).toISOString().split('.')[0]} // Help PLZ
+              type="date"
+              id="deadline-date"
+              name="deadline-date"
+              defaultValue={moment(todo?.deadline).format("YYYY-MM-DD")}
+              required
+            />
+            <input
+              type="time"
+              id="deadline-time"
+              name="deadline-time"
+              defaultValue={moment(todo?.deadline).format("HH:mm")}
               required
             />
             <input type="submit" disabled={waitingForResponse} value={forUpdate ? "Save" : "Create"} />

@@ -1,3 +1,4 @@
+import moment from "moment";
 import { ChangeEventHandler, useState } from "react";
 import { Todo as ITodo } from "../interfaces/api-dtos";
 import TodoModal from "./todo-modal";
@@ -9,9 +10,9 @@ export default function Todo({
   todo: ITodo;
   onDelete?: (id: number) => void;
 }) {
-  const deadlineDate = new Date(todo.deadline).toLocaleString();
-  const deadlineDiff = todo.deadline - Date.now();
   const [todoState, setTodo] = useState(todo);
+  const deadlineDate = moment(todoState.deadline).format("YYYY-MM-DD HH:mm");
+  const deadlineDiff = todoState.deadline - Date.now();
 
   let deadlineColor = "unset";
   if (deadlineDiff < 0) {
