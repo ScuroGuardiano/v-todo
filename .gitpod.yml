@@ -1,7 +1,5 @@
 tasks:
-  - before: chmod u+x gitpod.sh && chmod u+x build.sh
-  - init: ./gitpod.sh
-  - command: ./v-todo & cd app && npm run dev &
+  - command: chmod u+x gitpod.sh && chmod u+x build.sh && ./gitpod.sh
 ports:
   - port: 3000
     onOpen: open-preview

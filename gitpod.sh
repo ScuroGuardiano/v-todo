@@ -8,6 +8,9 @@ cd ..
 sudo mv v /opt/v
 sudo ln -sf /opt/v/v /usr/bin/v
 cd /workspace/v-todo
+v install
 ./build.sh
+./v-todo &
 cd app
 npm install
+npm run dev &
